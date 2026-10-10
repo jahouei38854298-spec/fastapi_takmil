@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>لیست کاربران</title>
+</head>
+
+<body>
+
+    <h1>لیست کاربران</h1>
+
+    <ul>
+
+        {% for student in students %}
+
+            <li>
+                نام:{{ student.name }}
+                -
+                سن: {{ student.age }}
+
+                <form
+                    action="/students/{{ student.name }}/delete"
+                    method="post"
+                    style="display: inline;"
+                >
+
+                    <button type="submit">
+                         حذف کاربر
+                    </button>
+
+                </form>
+            </li>
+
+        {% endfor %}
+
+    </ul>
+
+</body>
+
+</html>
