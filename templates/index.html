@@ -1,40 +1,124 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
-    <title>لیست کاربران</title>
+    <title>مدیریت کاربران</title>
 </head>
 
 <body>
 
-    <h1>لیست کاربران</h1>
+    <h1>مدیریت کاربران</h1>
 
-    <ul>
+    <!-- فرم افزودن کاربر جدید -->
+    <h2>افزودن کاربر جدید</h2>
 
-        {% for student in students %}
+    <form action="/students/add" method="post">
 
-            <li>
-                نام:{{ student.name }}
-                -
-                سن: {{ student.age }}
+        <label for="new_name">نام کاربر:</label>
 
-                <form
-                    action="/students/{{ student.name }}/delete"
-                    method="post"
-                    style="display: inline;"
-                >
+        <input
+            type="text"
+            id="new_name"
+            name="name"
+            minlength="2"
+            maxlength="50"
+            required
+        >
 
-                    <button type="submit">
-                         حذف کاربر
-                    </button>
+        <label for="new_age">سن:</label>
 
-                </form>
-            </li>
+        <input
+            type="number"
+            id="new_age"
+            name="age"
+            min="0"
+            max="120"
+            required
+        >
 
-        {% endfor %}
+        <button type="submit">
+            افزودن کاربر
+        </button>
 
-    </ul>
+    </form>
+
+    <hr>
+
+    <!-- جدول کاربران -->
+    <h2>فهرست کاربران</h2>
+
+    <table border="1" cellpadding="10">
+
+        <thead>
+            <tr>
+                <th>نام</th>
+                <th>سن</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for student in students %}
+
+            <tr>
+
+                <td>
+                    {{ student.name }}
+                </td>
+
+                <td>
+                    {{ student.age }}
+                </td>
+
+                <td>
+
+                    <!-- فرم ویرایش سن -->
+                    <form
+                        action="/students/{{ student.name }}/edit"
+                        method="post"
+                        style="display: inline;"
+                    >
+
+                        <input
+                            type="number"
+                            name="age"
+                            value="{{ student.age }}"
+                            min="0"
+                            max="120"
+                            required
+                        >
+
+                        <button type="submit">
+                            ویرایش سن
+                        </button>
+
+                    </form>
+
+                    <!-- فرم حذف کاربر -->
+                    <form
+                        action="/students/{{ student.name }}/delete"
+                        method="post"
+                        style="display: inline;"
+                    >
+
+                        <button type="submit">
+                            حذف
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
 
 </body>
 
