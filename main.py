@@ -110,6 +110,11 @@ def edit_student_from_page(
 
 
 
+
+
+
+
+
 @app.post("/students/{name}/delete")
 def delete_student_from_page(name: str):
 
