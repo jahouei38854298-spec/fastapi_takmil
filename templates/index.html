@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>مدیریت کاربران</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
@@ -14,7 +15,7 @@
     <!-- فرم افزودن کاربر جدید -->
     <h2>افزودن کاربر جدید</h2>
 
-    <form action="/students/add" method="post">
+    <form action="/students/add" method="post" class="add-form">
 
         <label for="new_name">نام کاربر:</label>
 
@@ -49,6 +50,7 @@
     <!-- جدول کاربران -->
     <h2>فهرست کاربران</h2>
 
+    <div class="table-container">
     <table border="1" cellpadding="10">
 
         <thead>
@@ -104,7 +106,7 @@
                         style="display: inline;"
                     >
 
-                        <button type="submit">
+                        <button type="submit" class="delete-button">
                             حذف
                         </button>
 
@@ -117,7 +119,7 @@
             {% endfor %}
 
         </tbody>
-
+        <div>
     </table>
 
 </body>
