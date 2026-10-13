@@ -7,9 +7,15 @@
 from fastapi import FastAPI, HTTPException, Query, Request, Form
 from fastapi.responses import HTMLResponse,RedirectResponse
 from fastapi.templating import Jinja2Templates
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field,EmailStr
 from database import students_collection
 from fastapi.staticfiles import StaticFiles
+from datetime import date, datetime
+
+
+
+
+
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -28,10 +34,16 @@ def get_students_from_db():
     )
 
 
+
+
 class Student(BaseModel):
     name: str = Field(min_length=2, max_length=50)
     age: int = Field(ge=0, le=120)
-
+    birth_date: date
+    father_name: str = Field(min_length=2, max_length=50)
+    birth_place: str = Field(min_length=2, max_length=100)
+    phone: str = Field(pattern=r"^98\d{9}$")
+    email: EmailStr
 
 
 
@@ -54,12 +66,26 @@ def home(request: Request):
 
 
 
+
 @app.post("/students/add")
 def add_student_from_page(
     name: str = Form(..., min_length=2, max_length=50),
-    age: int = Form(..., ge=0, le=120)
+    age: int = Form(..., ge=0, le=120),
+    birth_date: date = Form(...),
+    father_name: str = Form(..., min_length=2, max_length=50),
+    birth_place: str = Form(..., min_length=2, max_length=100),
+    phone: str = Form(..., pattern=r"^98\d{9}$"),
+    email: EmailStr = Form(...)
 ):
-    student = Student(name=name, age=age)
+    student = Student(
+        name=name,
+        age=age,
+        birth_date=birth_date,
+        father_name=father_name,
+        birth_place=birth_place,
+        phone=phone,
+        email=email
+    )
 
     existing_student = students_collection.find_one(
         {"name": student.name}
@@ -72,13 +98,11 @@ def add_student_from_page(
         )
 
     students_collection.insert_one(
-        student.model_dump()
+        student.model_dump(mode="json")
     )
 
-    return RedirectResponse(
-        url="/",
-        status_code=303
-    )
+    return RedirectResponse(url="/", status_code=303)
+
 
 
 
@@ -88,11 +112,26 @@ def add_student_from_page(
 @app.post("/students/{name}/edit")
 def edit_student_from_page(
     name: str,
-    age: int = Form(..., ge=0, le=120)
+    age: int = Form(..., ge=0, le=120),
+    birth_date: date = Form(...),
+    father_name: str = Form(..., min_length=2, max_length=50),
+    birth_place: str = Form(..., min_length=2, max_length=100),
+    phone: str = Form(..., pattern=r"^98\d{9}$"),
+    email: EmailStr = Form(...)
 ):
+    updated_student = Student(
+        name=name,
+        age=age,
+        birth_date=birth_date,
+        father_name=father_name,
+        birth_place=birth_place,
+        phone=phone,
+        email=email
+    )
+
     result = students_collection.update_one(
         {"name": name},
-        {"$set": {"age": age}}
+        {"$set": updated_student.model_dump(mode="json")}
     )
 
     if result.matched_count == 0:
@@ -101,10 +140,8 @@ def edit_student_from_page(
             detail="student not found"
         )
 
-    return RedirectResponse(
-        url="/",
-        status_code=303
-    )
+    return RedirectResponse(url="/", status_code=303)
+
 
 
 
@@ -235,6 +272,7 @@ def get_student(name: str):
 
 
 
+
 @app.post("/students")
 def create_student(student: Student):
 
@@ -249,10 +287,12 @@ def create_student(student: Student):
         )
 
     students_collection.insert_one(
-        student.model_dump()
+        student.model_dump(mode="json")
     )
 
-    return student
+    return student.model_dump(mode="json")
+
+
 
 
 
@@ -266,7 +306,7 @@ def update_student(name: str, student: Student):
 
     result = students_collection.update_one(
         {"name": name},
-        {"$set": {"age": student.age}}
+        {"$set": student.model_dump(mode="json")}
     )
 
     if result.matched_count == 1:
