@@ -42,7 +42,7 @@ class Student(BaseModel):
     birth_date: date
     father_name: str = Field(min_length=2, max_length=50)
     birth_place: str = Field(min_length=2, max_length=100)
-    phone: str = Field(pattern=r"^98\d{9}$")
+    phone: str = Field(pattern=r"^09\d{9}$")
     email: EmailStr
 
 
@@ -74,7 +74,7 @@ def add_student_from_page(
     birth_date: date = Form(...),
     father_name: str = Form(..., min_length=2, max_length=50),
     birth_place: str = Form(..., min_length=2, max_length=100),
-    phone: str = Form(..., pattern=r"^98\d{9}$"),
+    phone: str = Form(..., pattern=r"^09\d{9}$"),
     email: EmailStr = Form(...)
 ):
     student = Student(
@@ -116,7 +116,7 @@ def edit_student_from_page(
     birth_date: date = Form(...),
     father_name: str = Form(..., min_length=2, max_length=50),
     birth_place: str = Form(..., min_length=2, max_length=100),
-    phone: str = Form(..., pattern=r"^98\d{9}$"),
+    phone: str = Form(..., pattern=r"^09\d{9}$"),
     email: EmailStr = Form(...)
 ):
     updated_student = Student(
