@@ -4,6 +4,8 @@
 
 
 
+import email
+
 from fastapi import FastAPI, HTTPException, Query, Request, Form
 from fastapi.responses import HTMLResponse,RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -44,7 +46,7 @@ class Student(BaseModel):
     birth_place: str = Field(min_length=2, max_length=100)
     phone: str = Field(pattern=r"^09\d{9}$")
     email: EmailStr
-
+    address: str | None = Field(default=None, min_length=2, max_length=200)
 
 
 
@@ -75,7 +77,8 @@ def add_student_from_page(
     father_name: str = Form(..., min_length=2, max_length=50),
     birth_place: str = Form(..., min_length=2, max_length=100),
     phone: str = Form(..., pattern=r"^09\d{9}$"),
-    email: EmailStr = Form(...)
+    email: EmailStr = Form(...),
+    address: str | None = Form(default=None, min_length=2, max_length=200)
 ):
     student = Student(
         name=name,
@@ -84,7 +87,8 @@ def add_student_from_page(
         father_name=father_name,
         birth_place=birth_place,
         phone=phone,
-        email=email
+        email=email,
+        address=address
     )
 
     existing_student = students_collection.find_one(
@@ -117,7 +121,8 @@ def edit_student_from_page(
     father_name: str = Form(..., min_length=2, max_length=50),
     birth_place: str = Form(..., min_length=2, max_length=100),
     phone: str = Form(..., pattern=r"^09\d{9}$"),
-    email: EmailStr = Form(...)
+    email: EmailStr = Form(...),
+    address: str | None = Form(default=None, min_length=2, max_length=200)
 ):
     updated_student = Student(
         name=name,
@@ -126,7 +131,8 @@ def edit_student_from_page(
         father_name=father_name,
         birth_place=birth_place,
         phone=phone,
-        email=email
+        email=email,
+        address=address
     )
 
     result = students_collection.update_one(

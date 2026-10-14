@@ -1,13 +1,11 @@
-```html
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>مدیریت کاربران</title>
-
     <link rel="stylesheet" href="/static/style.css">
 </head>
 
@@ -15,221 +13,282 @@
 
     <h1>مدیریت کاربران</h1>
 
-    <!-- فرم افزودن کاربر جدید -->
-    <h2>افزودن کاربر جدید</h2>
+    <!-- فرم افزودن کاربر -->
+    <section class="panel">
 
-    <form action="/students/add" method="post" class="add-form">
+        <h2>افزودن کاربر جدید</h2>
 
-        <label for="name">نام و نام خانوادگی:</label>
-        <input
-            type="text"
-            id="name"
-            name="name"
-            required
-            minlength="2"
-            maxlength="50"
-        >
+        <form action="/students/add" method="post" class="add-form">
 
-        <label for="age">سن:</label>
-        <input
-            type="number"
-            id="age"
-            name="age"
-            required
-            min="0"
-            max="120"
-        >
+            <div class="form-group">
+                <label for="name">نام و نام خانوادگی</label>
+                <input type="text" id="name" name="name"
+                       minlength="2" maxlength="50" required
+                       title="نام و نام خانوادگی باید بین 2 تا 50 کاراکتر باشد">
 
-        <label for="birth_date">تاریخ تولد:</label>
-        <input
-            type="date"
-            id="birth_date"
-            name="birth_date"
-            required
-        >
+            </div>
 
-        <label for="father_name">نام پدر:</label>
-        <input
-            type="text"
-            id="father_name"
-            name="father_name"
-            required
-            minlength="2"
-            maxlength="50"
-        >
+            <div class="form-group">
+                <label for="age">سن</label>
+                <input type="number" id="age" name="age"
+                       min="0" max="120" required
+                       title="سن باید بین 0 تا 120 باشد">
+            </div>
 
-        <label for="birth_place">محل تولد:</label>
-        <input
-            type="text"
-            id="birth_place"
-            name="birth_place"
-            required
-            minlength="2"
-            maxlength="100"
-        >
+            <div class="form-group">
+                <label for="birth_date">تاریخ تولد</label>
+                <input type="date" id="birth_date"
+                       name="birth_date" required
+                       title="لطفاً یک تاریخ معتبر انتخاب کنید">
+            </div>
 
-        <label for="phone">شماره تلفن:</label>
-        <input
-            type="tel"
-            id="phone"
-            name="phone"
-            pattern="09[0-9]{9}"
-            placeholder="09123456789"
-            title="شماره باید با 09 شروع شود و 9 رقم دیگر داشته باشد"
-            required
-        >
+            <div class="form-group">
+                <label for="father_name">نام پدر</label>
+                <input type="text" id="father_name"
+                       name="father_name"
+                       minlength="2" maxlength="50" required
+                       title="نام پدر باید بین 2 تا 50 کاراکتر باشد">
+            </div>
 
-        <label for="email">ایمیل:</label>
-        <input
-            type="email"
-            id="email"
-            name="email"
-            required
-        >
+            <div class="form-group">
+                <label for="birth_place">محل تولد</label>
+                <input type="text" id="birth_place"
+                       name="birth_place"
+                       minlength="2" maxlength="100" required
+                       title="لطفا محل تولد خود را وارد کنید">
+            </div>
 
-        <button type="submit">ثبت کاربر</button>
+            <div class="form-group">
+                <label for="phone">شماره تلفن</label>
+                <input type="tel" id="phone" name="phone"
+                       pattern="09[0-9]{9}"
+                       placeholder="09123456789"
+                       title="شماره باید با 09 شروع شود و 9 رقم دیگر داشته باشد"
+                       required>
+            </div>
 
-    </form>
+            <div class="form-group">
+                <label for="email">ایمیل</label>
+                <input type="email" id="email" name="email" required
+                       title="لطفاً یک ایمیل معتبر وارد کنید">
+            </div>
 
-    <hr>
+            <div class="form-group">
+                <label for="address">آدرس</label>
+                <input type="text" id="address" name="address"
+                       minlength="2" maxlength="200"
+                       title="آدرس باید بین 2 تا 200 کاراکتر باشد">
+            </div>
+
+            <button type="submit">ثبت کاربر</button>
+
+        </form>
+
+    </section>
 
     <!-- جدول کاربران -->
-    <h2>فهرست کاربران</h2>
+    <section class="panel">
 
-    <div class="table-container">
+        <h2>فهرست کاربران</h2>
 
-        <table>
+        <div class="table-container">
 
-            <thead>
-                <tr>
-                    <th>نام</th>
-                    <th>سن</th>
-                    <th>تاریخ تولد</th>
-                    <th>نام پدر</th>
-                    <th>محل تولد</th>
-                    <th>شماره تلفن</th>
-                    <th>ایمیل</th>
-                    <th>ویرایش اطلاعات</th>
-                    <th>حذف</th>
-                </tr>
-            </thead>
+            <table>
+                <thead>
+                    <tr>
+                        <th>نام و نام خانوادگی</th>
+                        <th>سن</th>
+                        <th>تاریخ تولد</th>
+                        <th>نام پدر</th>
+                        <th>محل تولد</th>
+                        <th>شماره تلفن</th>
+                        <th>ایمیل</th>
+                        <th>آدرس</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
 
-            <tbody>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.age }}</td>
+                        <td>{{ student.get('birth_date', '-') }}</td>
+                        <td>{{ student.get('father_name', '-') }}</td>
+                        <td>{{ student.get('birth_place', '-') }}</td>
+                        <td dir="ltr">{{ student.get('phone', '-') }}</td>
+                        <td dir="ltr">{{ student.get('email', '-') }}</td>
+                        <td>{{ student.get('address', '-') }}</td>
 
-                {% for student in students %}
-
-                <tr>
-
-                    <td>{{ student.name }}</td>
-                    <td>{{ student.age }}</td>
-                    <td>{{ student.get('birth_date', '-') }}</td>
-                    <td>{{ student.get('father_name', '-') }}</td>
-                    <td>{{ student.get('birth_place', '-') }}</td>
-                    <td>{{ student.get('phone', '-') }}</td>
-                    <td>{{ student.get('email', '-') }}</td>
-
-                    <!-- فرم ویرایش اطلاعات -->
-                    <td>
-
-                        <form
-                            action="/students/{{ student.name }}/edit"
-                            method="post"
-                        >
-
-                            <label>سن:</label>
-                            <input
-                                type="number"
-                                name="age"
-                                value="{{ student.age }}"
-                                min="0"
-                                max="120"
-                                required
-                            >
-
-                            <label>تاریخ تولد:</label>
-                            <input
-                                type="date"
-                                name="birth_date"
-                                value="{{ student.get('birth_date', '') }}"
-                                required
-                            >
-
-                            <label>نام پدر:</label>
-                            <input
-                                type="text"
-                                name="father_name"
-                                value="{{ student.get('father_name', '') }}"
-                                minlength="2"
-                                maxlength="50"
-                                required
-                            >
-
-                            <label>محل تولد:</label>
-                            <input
-                                type="text"
-                                name="birth_place"
-                                value="{{ student.get('birth_place', '') }}"
-                                minlength="2"
-                                maxlength="100"
-                                required
-                            >
-
-                            <label>شماره تلفن:</label>
-                            <input
-                                type="tel"
-                                name="phone"
-                                value="{{ student.get('phone', '') }}"
-                                pattern="09[0-9]{9}"
-                                title="شماره باید با 09 شروع شود و 9 رقم دیگر داشته باشد"
-                                required
-                            >
-
-                            <label>ایمیل:</label>
-                            <input
-                                type="email"
-                                name="email"
-                                value="{{ student.get('email', '') }}"
-                                required
-                            >
-
-                            <button type="submit">
-                                ذخیره تغییرات
-                            </button>
-
-                        </form>
-
-                    </td>
-
-                    <!-- فرم حذف کاربر -->
-                    <td>
-
-                        <form
-                            action="/students/{{ student.name }}/delete"
-                            method="post"
-                        >
+                        <td class="actions">
 
                             <button
-                                type="submit"
-                                class="delete-button"
-                            >
-                                حذف
+                                type="button"
+                                class="edit-button"
+                                data-edit-url="/students/{{ student.name | urlencode }}/edit"
+                                data-name="{{ student.name }}"
+                                data-age="{{ student.age }}"
+                                data-birth-date="{{ student.get('birth_date', '') }}"
+                                data-father-name="{{ student.get('father_name', '') }}"
+                                data-birth-place="{{ student.get('birth_place', '') }}"
+                                data-phone="{{ student.get('phone', '') }}"
+                                data-email="{{ student.get('email', '') }}"
+                                data-address="{{ student.get('address', '') }}"
+                                onclick="editStudent(this)">
+                                ویرایش
                             </button>
 
-                        </form>
+                            <form
+                                action="/students/{{ student.name | urlencode }}/delete"
+                                method="post"
+                                onsubmit="return confirm('آیا از حذف این کاربر مطمئن هستید؟');">
 
-                    </td>
+                                <button type="submit" class="delete-button">
+                                    حذف
+                                </button>
 
-                </tr>
+                            </form>
 
-                {% endfor %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="9" class="empty-message">
+                            هنوز کاربری ثبت نشده است.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
-            </tbody>
+        </div>
 
-        </table>
+    </section>
 
-    </div>
+    <!-- فرم ویرایش جدا از جدول -->
+    <section class="panel edit-panel" id="edit-section" hidden>
+
+        <h2>ویرایش اطلاعات کاربر</h2>
+
+        <form id="edit-form" method="post" class="edit-form">
+
+            <div class="form-group">
+                <label for="edit-name">نام و نام خانوادگی</label>
+                <input type="text" id="edit-name" name="name"
+                       minlength="2" maxlength="50" required>
+            </div>
+
+            <div class="form-group">
+                <label for="edit-age">سن</label>
+                <input type="number" id="edit-age" name="age"
+                       min="0" max="120" required>
+            </div>
+
+            <div class="form-group">
+                <label for="edit-birth-date">تاریخ تولد</label>
+                <input type="date" id="edit-birth-date"
+                       name="birth_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="edit-father-name">نام پدر</label>
+                <input type="text" id="edit-father-name"
+                       name="father_name"
+                       minlength="2" maxlength="50" required>
+            </div>
+
+            <div class="form-group">
+                <label for="edit-birth-place">محل تولد</label>
+                <input type="text" id="edit-birth-place"
+                       name="birth_place"
+                       minlength="2" maxlength="100" required>
+            </div>
+
+            <div class="form-group">
+                <label for="edit-phone">شماره تلفن</label>
+                <input type="tel" id="edit-phone" name="phone"
+                       pattern="09[0-9]{9}"
+                       placeholder="09123456789"
+                       title="شماره باید با 09 شروع شود و 9 رقم دیگر داشته باشد"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="edit-email">ایمیل</label>
+                <input type="email" id="edit-email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="edit-address">آدرس</label>
+                <input type="text" id="edit-address" name="address"
+                       minlength="2" maxlength="200">
+            </div>
+
+            <div class="edit-actions">
+                <button type="submit">ذخیره تغییرات</button>
+
+                <button type="button"
+                        class="cancel-button"
+                        onclick="cancelEdit()">
+                    انصراف
+                </button>
+            </div>
+
+        </form>
+
+    </section>
+
+    <script>
+        function editStudent(button) {
+            const section = document.getElementById("edit-section");
+            const form = document.getElementById("edit-form");
+
+            // آدرس مسیر ویرایش کاربر انتخاب‌شده
+            form.action = button.dataset.editUrl;
+
+            // انتقال اطلاعات کاربر به فرم ویرایش
+            document.getElementById("edit-name").value =
+                button.dataset.name;
+
+            document.getElementById("edit-age").value =
+                button.dataset.age;
+
+            document.getElementById("edit-birth-date").value =
+                button.dataset.birthDate;
+
+            document.getElementById("edit-father-name").value =
+                button.dataset.fatherName;
+
+            document.getElementById("edit-birth-place").value =
+                button.dataset.birthPlace;
+
+            document.getElementById("edit-phone").value =
+                button.dataset.phone;
+
+            document.getElementById("edit-email").value =
+                button.dataset.email;
+
+            document.getElementById("edit-address").value =
+                button.dataset.address;
+
+            // نمایش فرم ویرایش
+            section.hidden = false;
+
+            // رفتن به بخش فرم ویرایش
+            section.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }
+
+        function cancelEdit() {
+            const section = document.getElementById("edit-section");
+            const form = document.getElementById("edit-form");
+
+            form.reset();
+            section.hidden = true;
+        }
+    </script>
 
 </body>
-
 </html>
-```
